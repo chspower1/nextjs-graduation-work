@@ -2,7 +2,7 @@
 import { createUser, isEmailUnique } from "@/libs/auth.util";
 import { getSession, saveSession } from "@/libs/session.util";
 import { CreateAccountInput } from "@/typings/auth.type";
-import { redirect } from "next/navigation";
+import { RedirectType, redirect } from "next/navigation";
 import { z } from "zod";
 
 const createAccountSchema = z
@@ -42,7 +42,7 @@ export const createAccountAction = async (prevState: any, formData: FormData) =>
     const user = await createUser(result.data);
     const session = await getSession();
     saveSession(session, user.id);
-    redirect("/");
+    return redirect("/", RedirectType.push);
   } else {
     errorMessage = result.error.flatten();
   }

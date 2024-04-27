@@ -5,7 +5,8 @@ import { LoginInput } from "@/typings/auth.type";
 import { z } from "zod";
 import bcrypt from "bcrypt";
 import { getSession, saveSession } from "@/libs/session.util";
-import { redirect } from "next/navigation";
+import { RedirectType, redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 const loginSchema = z
   .object({
     [LoginInput.EMAIL]: z.string().trim(),
@@ -55,7 +56,8 @@ export const loginAction = async (prevState: any, formData: FormData) => {
   if (!result.success) {
     errorMessage = result.error.flatten();
   } else {
-    redirect("/");
+    revalidatePath("/");
+    redirect("/", RedirectType.push);
   }
   return {
     email: data[LoginInput.EMAIL],
