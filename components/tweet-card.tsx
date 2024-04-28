@@ -59,7 +59,7 @@ const TweetCard = async ({ tweet }: TweetCardProps) => {
       </div>
       <div className="flex flex-col gap-[4px] px-[50px]">
         <Link href={`/tweet/${tweet.id}`}>
-          <p className="w-full max-h-[24px] overflow-ellipsis overflow-hidden whitespace-nowrap">
+          <p className="w-full max-h-[24px] overflow-ellipsis overflow-hidden whitespace-nowrap hover:underline">
             {tweet.content}
           </p>
         </Link>

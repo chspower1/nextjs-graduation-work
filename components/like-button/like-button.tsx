@@ -12,7 +12,7 @@ interface LikeButtonProps {
 const LikeButton = ({ likeCount, tweetId }: LikeButtonProps) => {
   return (
     <button className="flex gap-[4px] items-center" onClick={() => toggleLike(tweetId)}>
-      <Image src="./icon/heart.svg" width={24} height={24} alt="chat" />
+      <Image src="/icon/heart.svg" width={24} height={24} alt="chat" />
       <span>{likeCount}</span>
     </button>
   );
