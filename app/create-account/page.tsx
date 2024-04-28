@@ -18,6 +18,13 @@ const CreateAccountPage = () => {
           type="email"
           errorMessage={state?.errorMessage?.fieldErrors[CreateAccountInput.EMAIL]?.[0]}
         />
+        <Input
+          id="create-account-name"
+          label="이름"
+          name={CreateAccountInput.NAME}
+          type="text"
+          errorMessage={state?.errorMessage?.fieldErrors[CreateAccountInput.NAME]?.[0]}
+        />
         {/* TODO: 비밀번호 마스킹하기 */}
         <Input
           id="create-account-password"

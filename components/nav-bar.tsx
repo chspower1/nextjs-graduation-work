@@ -33,9 +33,7 @@ const LogoutButton = () => {
   );
 };
 const NavBar = (params: any) => {
-  const pathname = headers().get("x-pathname") ?? "";
-
-  console.log("nav", pathname);
+  const pathname = headers().get("x-pathname");
   return (
     <div className="w-screen flex gap-10 border-b-[1px] border-stroke h-[60px] px-[60px] items-center">
       <Link href="/">

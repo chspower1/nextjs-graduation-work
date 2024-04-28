@@ -3,13 +3,15 @@ import bcrypt from "bcrypt";
 
 export const createUser = async (data: {
   email: string;
+  name: string;
   password: string;
   passwordConfirm?: string;
 }) => {
-  const { email, password } = data;
+  const { email, password, name } = data;
   const user = await db.user.create({
     data: {
       email,
+      name,
       password: await hashedPassword(password),
     },
     select: {
