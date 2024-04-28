@@ -13,6 +13,7 @@ export const createUser = async (data: {
       email,
       name,
       password: await hashedPassword(password),
+      avator: `/user_avator/random_profile${Math.floor(Math.random() * 10) + 1}.png`,
     },
     select: {
       id: true,

@@ -1,7 +1,11 @@
 import db from "@/libs/db.util";
 import { Tweet, User } from "@prisma/client";
 import Image from "next/image";
-
+import ReplyButton from "./reply-button/reply-button";
+import LikeButton from "./like-button/like-button";
+import dayjs from "dayjs";
+import "dayjs/locale/ko";
+import Link from "next/link";
 interface TweetCardProps {
   tweet: Tweet;
 }
@@ -32,32 +36,38 @@ const getTweetReplyAndLikeCount = async (tweetId: number) => {
   });
   return { replyCount, likeCount };
 };
-
+const toggleLike = async () => {};
 const TweetCard = async ({ tweet }: TweetCardProps) => {
   const user = await getUser(tweet.userId);
   const { likeCount, replyCount } = await getTweetReplyAndLikeCount(tweet.id);
   return (
     <div className="w-[556px] flex flex-col border-stroke border-[1px] py-[10px] px-[28px] gap-[10px] text-black">
       <div className="flex gap-[10px]">
-        <div className="rounded-full bg-red-400 size-[40px]"></div>
+        <Image
+          src={user?.avator!}
+          width={40}
+          height={40}
+          alt="user"
+          className="cursor-pointer rounded-full border-gray-100 border-2"
+        />
         <div className="flex flex-col gap-[4px]">
           <span className="text-[15px]">{user?.name}</span>
-          <span className="text-[11px] text-[#929292]">{tweet.createAt.getFullYear()}</span>
+          <span className="text-[11px] text-[#929292]">
+            {dayjs(tweet.createAt.toISOString()).format("YYYY년 MM월 DD일")}
+          </span>
         </div>
       </div>
       <div className="flex flex-col gap-[4px] px-[50px]">
-        <div>{tweet.content}</div>
-        <div className="w-[300px] h-[175px] bg-gray-300 rounded-md" />
+        <Link href={`/tweet/${tweet.id}`}>
+          <p className="w-full max-h-[24px] overflow-ellipsis overflow-hidden whitespace-nowrap">
+            {tweet.content}
+          </p>
+        </Link>
+        {/* <div className="w-[300px] h-[175px] bg-gray-300 rounded-md" /> */}
       </div>
-      <div className="flex gap-[21px] px-[50px]">
-        <div className="flex gap-[4px] items-center">
-          <Image src="./icon/chat.svg" width={24} height={24} alt="chat" />
-          <span>{replyCount}</span>
-        </div>
-        <div className="flex gap-[4px] items-center">
-          <Image src="./icon/heart.svg" width={24} height={24} alt="chat" />
-          <span>{likeCount}</span>
-        </div>
+      <div className="flex px-[50px]">
+        {/* <ReplyButton replyCount={replyCount} /> */}
+        <LikeButton likeCount={likeCount} tweetId={tweet.id} />
       </div>
     </div>
   );

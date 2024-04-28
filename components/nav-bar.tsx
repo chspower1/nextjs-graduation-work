@@ -1,3 +1,4 @@
+import db from "@/libs/db.util";
 import { getSession } from "@/libs/session.util";
 import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
@@ -10,6 +11,17 @@ const doLogout = async () => {
   session.destroy();
   revalidatePath("/log-in");
   redirect("/log-in");
+};
+const getUser = async () => {
+  "use server";
+  const session = await getSession();
+  if (!session.id) return null;
+  const user = await db.user.findUnique({
+    where: {
+      id: session.id,
+    },
+  });
+  return user;
 };
 const Button = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -32,8 +44,10 @@ const LogoutButton = () => {
     </form>
   );
 };
-const NavBar = (params: any) => {
+
+const NavBar = async (params: any) => {
   const pathname = headers().get("x-pathname");
+  const user = await getUser();
   return (
     <div className="w-screen flex gap-10 border-b-[1px] border-stroke h-[60px] px-[60px] items-center">
       <Link href="/">
@@ -44,11 +58,11 @@ const NavBar = (params: any) => {
         {pathname === "/" ? (
           <>
             <Image
-              src={"/icon/user.svg"}
+              src={user?.avator!}
               width={44}
               height={44}
               alt="user"
-              className="cursor-pointer"
+              className="cursor-pointer rounded-full border-gray-100 border-2"
             />
             <LogoutButton />
           </>
