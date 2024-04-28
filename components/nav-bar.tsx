@@ -55,7 +55,7 @@ const NavBar = async (params: any) => {
       </Link>
 
       <div className="w-full flex justify-end items-center">
-        {pathname === "/" ? (
+        {user ? (
           <>
             <Image
               src={user?.avator!}

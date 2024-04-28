@@ -14,7 +14,7 @@ const Input = ({ id, label, name, errorMessage, type = "text" }: InputProps) => 
         {label}
       </label>
       <input
-        className="w-full px-3  outline-none ring-2 rounded-[8px] h-[32px] ring-stroke ring-inset focus:ring-primary transition-all ease-out duration-500 text-black"
+        className="w-full px-3  outline-none ring-2 rounded-[8px] h-[32px] ring-stroke ring-inset focus:ring-primary transition-all ease-out duration-500 text-black placeholder:font-sans"
         id={id}
         type={type}
         name={name}

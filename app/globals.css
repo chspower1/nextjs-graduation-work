@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@font-face {
+  font-family: "sebang-gothic"; /* 사용할 폰트 이름 */
+  src: local("SEBANG Gothic OTF"), local("Helvetica"),
+    /* 로컬 폰트 파일 이름 */ url("./SEBANG\ Gothic\ OTF.otf") format("otf"); /* 웹 폰트 파일 경로 */
+  /* 필요에 따라 다른 폰트 포맷도 지정할 수 있습니다 */
+}
+input[type="password"] {
+  font-family: "굴림", sans-serif;
+}
+/* ::placeholder {
+  font-family: sebang-gothic;
+} */
