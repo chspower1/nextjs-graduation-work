@@ -6,8 +6,8 @@
       "command": "npm install"
     },
     {
+      "name": "create db"
       "command": "npx prisma migrate dev",
-      "name": "n"
     }
   ],
 
